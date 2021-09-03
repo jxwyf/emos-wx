@@ -1,3 +1,5 @@
 {
+  "navigationBarTitleText": "注册页",
+  "enablePullDownRefresh": false,
   "usingComponents": {}
 }

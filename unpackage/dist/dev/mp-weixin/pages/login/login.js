@@ -161,6 +161,28 @@ var _default =
       uni.navigateTo({
         url: "../register/register" });
 
+    },
+    login: function login() {
+      var that = this;
+      uni.login({
+        provider: "weixin",
+        success: function success(resp) {
+          var code = resp.code;
+          that.ajax(that.url.login, "POST", { "code": code }, function (resp) {
+            var permission = resp.data.permission;
+            uni.setStorageSync("permission", permission);
+          });
+          console.log(rsp);
+          //跳转到登录页面
+        },
+        // 没有获得临时授权id 
+        fail: function fail(e) {
+          uni.showToast({
+            icon: "none",
+            title: "执行异常" });
+
+        } });
+
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

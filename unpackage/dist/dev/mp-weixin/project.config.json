@@ -7,7 +7,7 @@
 		"urlCheck": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.14.0",
+	"libVersion": "",
 	"appid": "wxbaf14d69bb021196",
 	"projectname": "emos-wx",
 	"simulatorType": "wechat",
