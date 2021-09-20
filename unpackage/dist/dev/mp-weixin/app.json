@@ -6,7 +6,8 @@
     "pages/metting_list/metting_list",
     "pages/document/document",
     "pages/contacts/contacts",
-    "pages/mine/mine"
+    "pages/mine/mine",
+    "pages/checkin/checkin"
   ],
   "subPackages": [],
   "window": {

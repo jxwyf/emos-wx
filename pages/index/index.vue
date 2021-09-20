@@ -29,8 +29,8 @@
 		</view>
 		<view class="nav-container">
 			<view class="nav-row">
-				<view class="nav">
-				<image mode="widthFix" src="../../static/nav-1.png" class="icon"></image>
+				<view class="nav" @tap="toPage('在线签到','../checkin/checkin')">
+				<image mode="widthFix" src="../../static/nav-1.png"  class="icon"></image>
 				<text class="name">在线签到</text>
 				</view>
 				<view class="nav">
@@ -97,6 +97,12 @@
 
 		},
 		methods: {
+			toPage:function(name,url){
+				// 验证用户权限
+				uni.navigateTo({
+					url:url
+				})
+			}
 
 		}
 	}
