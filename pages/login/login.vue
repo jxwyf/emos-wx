@@ -21,6 +21,7 @@
 		},
 		methods: {
 			toRegister:function(){
+				//跳转到注册页
 				uni.navigateTo({
 					url:"../register/register"
 				})
@@ -35,8 +36,11 @@
 							let permission = resp.data.permission
 							 uni.setStorageSync("permission",permission)
 						})
-						console.log(rsp);
-						//跳转到登录页面
+						console.log(resp);
+						//跳转到首页
+						uni.switchTab({
+							url:"../index/index"
+						})
 					},
 					// 没有获得临时授权id 
 					fail:function(e){

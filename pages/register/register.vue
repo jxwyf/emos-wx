@@ -56,7 +56,10 @@
 									//获取权限列表
 									let permission = resp.data.permission
 									uni.setStorageSync("permission",permission)
-									//跳转到登录页
+									//跳转到首页
+									uni.switchTab({
+										url:"../index/index"
+									})
 								})
 							}
 						})
