@@ -15,7 +15,10 @@
 </template>
 
 <script>
+	var QQMapWX = require('../../lib/qqmap-wx-jssdk.min.js');
+	var qqmapsdk;
 	export default {
+		
 		data() {
 			return {
 				canCheckin:false,
@@ -25,6 +28,11 @@
 				showImage:false
 				
 			}
+		},
+		onLoad:function(){
+			qqmapsdk = new QQMapWX({
+				key:"IIZBZ-INV6W-GWORV-RZXE2-MF2S5-VUFLF"
+			})
 		},
 		methods: {
 			clackBtn:function(){
@@ -38,11 +46,46 @@
 							that.photoPath = resp.tempImagePath;
 							that.showCamera = false
 							that.showImage = true
-							 that.btnText = "签到"
-						}
+							that.btnText = '签到'
+						} 
 					})
 				}else{
 					//执行签到功能
+					uni.showLoading({
+						title:"签到中请稍后"
+					})
+					setTimeout(function(){
+						uni.hideLoading()
+					},3000)
+					//获得地理位置信息
+					uni.getLocation({
+						type:"wgs84",
+						success:function(resp){
+							//保存经纬度
+							let latitude = resp.latitude;
+							let longitude = resp.longitude;
+							// console.log("经度"+latitude)
+							// console.log("维度"+longitude)
+							qqmapsdk.reverseGeocoder({
+								location:{
+									latitude:latitude,
+									longitude:longitude
+								},
+								success:function(resp){
+									console.log(resp.result)
+									//获得地址数据
+									let address = resp.result.address;
+									let addressComponent = resp.result.address_component;
+									let nation = addressComponent.nation;
+									let province = addressComponent.province;
+									let city = addressComponent.city;
+									let districe = addressComponent.districe;
+									
+								}
+							})
+							
+						}
+					})
 				}
 			},
 			afresh:function(){

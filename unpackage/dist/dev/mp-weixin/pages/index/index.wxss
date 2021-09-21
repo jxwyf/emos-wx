@@ -2,7 +2,7 @@
   background-color: #EEEEF4;
 }
 .swiper {
-  height: 233px;
+  height: 230px;
 }
 .swiper image {
   width: 100%;
