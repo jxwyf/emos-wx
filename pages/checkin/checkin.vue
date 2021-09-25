@@ -4,8 +4,8 @@
 		<camera device-position="front" flash="off" class="camera" @error="error" v-if="showCamera"></camera>
 		<image mode="widthFix" class="image" :src="photoPath" v-if="showImage"></image>
 		<view class="operate-container">
-			<button type="primary" class="btn" @tap="clackBtn" :disabled="canCheckin">{{btnText}}</button>
-			<button type="warn" class="btn" @tap="afresh" :disabled="canCheckin">重拍</button>
+			<button type="primary" class="btn" @tap="clackBtn" :disabled="!canCheckin">{{btnText}}</button>
+			<button type="warn" class="btn" @tap="afresh" :disabled="!canCheckin">重拍</button>
 		</view>
 		<view class="notice-container">
 			<text class="notice">注意事项</text>
@@ -21,7 +21,7 @@
 		
 		data() {
 			return {
-				canCheckin:false,
+				canCheckin:true,
 				photoPath:'',
 				btnText:'拍照',
 				showCamera:true,
@@ -32,6 +32,22 @@
 		onLoad:function(){
 			qqmapsdk = new QQMapWX({
 				key:"IIZBZ-INV6W-GWORV-RZXE2-MF2S5-VUFLF"
+			})
+		},
+		onShow:function(){
+			let that = this
+			that.ajax(that.url.validCanCheckIn,"GET",null,function(resp){
+				console.log(resp)
+				let msg = resp.data.msg
+				if(msg!="可以考勤"){
+					that.canCheckin = false
+					setTimeout(function(){
+						uni.showToast({
+							title:msg,
+							icon:"none"
+						})
+					},1000)
+				}
 			})
 		},
 		methods: {
@@ -72,7 +88,7 @@
 									longitude:longitude
 								},
 								success:function(resp){
-									console.log(resp.result)
+									// console.log(resp.result)
 									//获得地址数据
 									let address = resp.result.address;
 									let addressComponent = resp.result.address_component;
@@ -80,6 +96,75 @@
 									let province = addressComponent.province;
 									let city = addressComponent.city;
 									let districe = addressComponent.districe;
+									//上传文件
+									uni.uploadFile({
+										url:that.url.checkin,
+										filePath:that.photoPath,
+										name:"photo",
+										header:{
+											token:uni.getStorageSync("token")
+										},
+										formData:{
+											address:address,
+											country:nation,
+											province:province,
+											city:city,
+											districe:districe
+										},
+										success:function(resp){
+											if(resp.statusCode==500&&resp.data=="不存在人脸模型"){
+												uni.hideLoading()
+												uni.showModal({
+													title:"提示信息",
+													content:"不存在人脸模型 是否用这张来当人脸模型",
+													success:function(resp){
+														if(resp.confirm){
+															uni.uploadFile({
+																url:that.url.createFaceModel,
+																filePath:that.photoPath,
+																name:"photo",
+																header:{
+																	token:uni.getStorageSync("token")
+																},
+																success:function(rsep){
+																	if(resp.statusCode==500){
+																		uni.showToast({
+																			title:resp.data,
+																			icon:"none"
+																		})
+																	}else if(resp.statusCode==200){
+																		uni.showToast({
+																			title:"人脸建模成功",
+																			icon:"none"
+																		})
+																	}
+																},
+															})
+														}
+													}
+												})
+											}else if(resp.statusCode==200){
+												let data = JSON.parse(resp.data)
+												let code = data.code
+												let msg = data.msg
+												if(code==200){
+													uni.hideLoading()
+													uni.showToast({
+														title:"签到成功",
+														complete:function(){
+															
+														}
+													})
+												}
+											}else if(resp.statusCode==500){
+												uni.showToast({
+													title:resp.data,
+													icon:"none"
+												})
+											}
+											
+										}
+									})
 									
 								}
 							})
