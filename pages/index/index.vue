@@ -17,7 +17,7 @@
 				<image mode="widthFix" src="https://static-1251306468.cos.ap-nanjing.myqcloud.com/img/banner/swiper-5.jpg"></image>
 			</swiper-item>
 		</swiper>
-		<view class="notify-container">
+		<view class="notify-container" @tap="toPage('消息提醒','/pages/message_list/message_list')">
 		<view class="notify-title">
 			<image src="../../static/icon-1.png" mode="widthFix" class="notify-icon"></image>
 			消息提醒
@@ -83,18 +83,50 @@
 					</view>
 			</view>
 		</view>
+		<uni-popup ref="popupMsg" type="top">
+			<uni-popup-message type="success" :message="'接收到' + lastRows + '条消息'" :duration="20000"></uni-popup-message>
+		</uni-popup>
 	</view>
 </template>
 
 <script>
+	import uniPopup from '@/components/uni-popup/uni-popup.vue';
+	import uniPopupMessage from '@/components/uni-popup/uni-popup-message.vue';
+	import uniPopupDialog from '@/components/uni-popup/uni-popup-dialog.vue';
 	export default {
+		components:{
+			uniPopup,
+			uniPopupMessage,
+			uniPopupDialog
+		},
 		data() {
 			return {
-			unreadRows:0
+			unreadRows:0,
+			lastRows:0,
+			timer:null
 			}
 		},
 		onLoad() {
-
+			let that = this;
+			uni.$on("showMessage",function(){
+				that.$refs.popupMsg.open()
+			})
+		},
+		onUnload:function(){
+			uni.$off("showMessage")
+		},
+		onShow:function(){
+			let that = this;
+			that.timer = setInterval(function(){
+				that.ajax(that.url.refreshMessage,"GET",null,function(resp){
+					that.unreadRows = resp.data.unreadRows
+					that.lastRows = resp.data.lastRows
+					if(that.lastRows>0){
+						uni.$emit("showMessage")
+					}
+				})
+			},5000)
+			
 		},
 		methods: {
 			toPage:function(name,url){
@@ -104,7 +136,11 @@
 				})
 			}
 
-		}
+		},
+		onHide:function(){
+			let that = this;
+			clearInterval(that.timer)
+		},
 	}
 </script>
 

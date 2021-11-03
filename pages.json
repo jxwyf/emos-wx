@@ -23,7 +23,10 @@
         },
         {
             "path" : "pages/metting_list/metting_list",
-            "style" : {}
+            "style" : {
+				"navigationBarTitleText" : "会议列表",
+				"enablePullDownRefresh" : false
+			}
         },
         {
             "path" : "pages/document/document",
@@ -39,11 +42,62 @@
         },
         {
             "path" : "pages/checkin/checkin",
-            "style" : {}
+            "style" : {
+				"navigationBarTitleText" : "在线签到",
+				"enablePullDownRefresh" : false
+			}
         },
         {
             "path" : "pages/checkin_result/checkin_result",
-            "style" : {}
+            "style" : {
+				"navigationBarTitleText" : "签到结果",
+				"enablePullDownRefresh" : false
+			}
+        }
+        ,{
+            "path" : "pages/my_checkin/my_checkin",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的考勤",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/message_list/message_list",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "消息列表",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/message/message",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "消息详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/metting/metting",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "会议详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/members/members",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "选择成员",
+                "enablePullDownRefresh": false
+            }
+            
         }
     ],
     "globalStyle" : {

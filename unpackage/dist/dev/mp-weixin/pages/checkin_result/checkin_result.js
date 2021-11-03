@@ -130,7 +130,60 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;} //
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -148,30 +201,39 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 var _default =
 {
-  data: function data() {var _ref;
-    return _ref = {
+  data: function data() {
+    return {
       name: "",
       photo: "",
-      deptName: "管理部" }, _defineProperty(_ref, "deptName",
-    "管理部"), _defineProperty(_ref, "address",
-    ""), _defineProperty(_ref, "status",
-    ""), _defineProperty(_ref, "risk",
-    ""), _defineProperty(_ref, "checkinTime",
-    ""), _defineProperty(_ref, "date",
-    ""), _defineProperty(_ref, "attendanceTime",
-    ""), _defineProperty(_ref, "closingTime",
-    ""), _defineProperty(_ref, "checkinDays",
-    201), _defineProperty(_ref, "weekCheckin",
-    [
-    { type: "工作日", day: "周一", status: "缺勤" },
-    { type: "工作日", day: "周一", status: "缺勤" },
-    { type: "工作日", day: "周一", status: "缺勤" },
-    { type: "工作日", day: "周一", status: "缺勤" },
-    { type: "工作日", day: "周一", status: "缺勤" },
-    { type: "工作日", day: "周一", status: "缺勤" },
-    { type: "工作日", day: "周一", status: "缺勤" }]), _ref;
+      deptName: "",
+      address: "",
+      status: "",
+      risk: "",
+      checkinTime: "",
+      date: "",
+      attendanceTime: "",
+      closingTime: "",
+      checkinDays: 0,
+      weekCheckin: [] };
 
-
+  },
+  onShow: function onShow() {
+    var that = this;
+    that.ajax(that.url.searchTodayCheckin, "GET", null, function (resp) {
+      var result = resp.data.result;
+      that.name = result.name;
+      that.photo = result.photo;
+      that.deptName = result.deptName;
+      that.address = result.address;
+      that.status = result.status;
+      that.risk = result.risk;
+      that.checkinTime = result.checkinTime;
+      that.date = result.date;
+      that.attendanceTime = result.attendanceTime;
+      that.closingTime = result.closingTime;
+      that.checkinDays = result.checkinDays;
+      that.weekCheckin = result.weekCheckin;
+    });
   },
   methods: {} };exports.default = _default;
 

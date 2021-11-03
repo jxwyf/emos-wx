@@ -73,8 +73,7 @@
 			return {
 				name:"",
 				photo:"",
-				deptName:"管理部",
-				deptName:"管理部",
+				deptName:"",
 				address:"",
 				status:"",
 				risk:"",
@@ -82,19 +81,30 @@
 				date:"",
 				attendanceTime:"",
 				closingTime:"",
-				checkinDays:201,
-				weekCheckin:[
-					{type:"工作日",day:"周一",status:"缺勤"},
-					{type:"工作日",day:"周一",status:"缺勤"},
-					{type:"工作日",day:"周一",status:"缺勤"},
-					{type:"工作日",day:"周一",status:"缺勤"},
-					{type:"工作日",day:"周一",status:"缺勤"},
-					{type:"节假日",day:"周一",status:"缺勤"},
-					{type:"节假日",day:"周一",status:"缺勤"},
-				]
+				checkinDays:0,
+				weekCheckin:[]
 			}
 		},
+		onShow:function(){
+			let that = this
+			that.ajax(that.url.searchTodayCheckin,"GET",null,function(resp){
+				let result = resp.data.result;
+				that.name = result.name;
+				that.photo = result.photo;
+				that.deptName = result.deptName;
+				that.address = result.address;
+				that.status = result.status;
+				that.risk = result.risk;
+				that.checkinTime = result.checkinTime;
+				that.date = result.date;
+				that.attendanceTime = result.attendanceTime;
+				that.closingTime = result.closingTime;
+				that.checkinDays = result.checkinDays;
+				that.weekCheckin = result.weekCheckin;
+			})
+		},
 		methods: {
+		
 			
 		}
 	}

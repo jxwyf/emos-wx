@@ -1,0 +1,17 @@
+.message {
+  margin: 55rpx;
+}
+.message .header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15rpx;
+}
+.message .header .desc {
+  font-size: 28rpx;
+  color: #999;
+}
+.message .header .opt {
+  font-size: 28rpx;
+  color: red;
+}
+

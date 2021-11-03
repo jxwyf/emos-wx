@@ -1,3 +1,5 @@
 {
+  "navigationBarTitleText": "签到结果",
+  "enablePullDownRefresh": false,
   "usingComponents": {}
 }
