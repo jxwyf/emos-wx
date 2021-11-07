@@ -1,7 +1,7 @@
 <template>
 	<view class="page">
 		<image src="../../static/logo-3.jpg" mode="widthFix" class="logo"></image>
-		<view class="add">
+		<view class="add" v-if="checkPermission(['ROOT','MEETING:INSERT'])" @tap="toMeetingPage(null,'insert')">
 			<image src="../../static/icon-17.png" mode="widthFix" class="icon"></image>
 			<text>创建会议</text>
 		</view>
@@ -31,7 +31,7 @@
 						</view>
 						<view class="creator">
 							<image src="../../static/icon-15.png" mode="widthFix" class="icon"></image>
-							<view>{{metting.name}} 222</view>
+							<view>{{metting.name}}</view>
 						</view>
 						<view class="place" v-if="meeting.type!=='线上会议'">
 							<image src="../../static/icon-16.png" mode="widthFix" class="icon"></image>
@@ -71,6 +71,10 @@
 			}
 			that.page = that.page + 1
 			that.loadMeetingList(that);
+		},
+		onLoad:function(options){
+			this.id = options.id;
+			this.opt = options.opt;
 		},
 		methods: {
 			loadMeetingList:function(ref){
@@ -129,6 +133,13 @@
 						}
 					}
 				})
+			},
+			toMeetingPage:function(id,opt){
+				console.log(111)
+				uni.navigateTo({
+					// url:"../meeting/meeting?id	=" + id + "&opt=" + opt
+					url:"../meeting/meeting?id="+id+"&opt="+opt
+				})
 			}
 			
 		}
@@ -137,5 +148,5 @@
 
 
 <style lang="less">
-	@import url("metting_list.less");
+	@import url("meeting_list.less");
 </style>

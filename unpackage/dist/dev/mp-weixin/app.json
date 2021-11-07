@@ -3,7 +3,7 @@
     "pages/login/login",
     "pages/index/index",
     "pages/register/register",
-    "pages/metting_list/metting_list",
+    "pages/meeting_list/meeting_list",
     "pages/document/document",
     "pages/contacts/contacts",
     "pages/mine/mine",
@@ -12,7 +12,7 @@
     "pages/my_checkin/my_checkin",
     "pages/message_list/message_list",
     "pages/message/message",
-    "pages/metting/metting",
+    "pages/meeting/meeting",
     "pages/members/members"
   ],
   "subPackages": [],
@@ -34,7 +34,7 @@
       },
       {
         "text": "会议",
-        "pagePath": "pages/metting_list/metting_list",
+        "pagePath": "pages/meeting_list/meeting_list",
         "iconPath": "static/bar-2.png",
         "selectedIconPath": "static/bar-2-active.png"
       },

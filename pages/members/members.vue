@@ -25,7 +25,43 @@
 				members:[]
 			}
 		},
+		onShow:function(){
+		this.loadData(this)	
+		},
+		onLoad:function(options){
+			//判断url里是否传递了这个参数
+		if(options.hasOwnProperty('members')){
+			let members = options.members;
+			this.members = members.split(','); //拆分成数组
+		}	
+		},
 		methods: {
+			loadData:function(ref){
+				ref.ajax(ref.url.searchUserGroupByDept,"POST",{keyword:ref.keyword},function(resp){
+					let result = resp.data.result
+					ref.list = result
+					for(let dept of ref.list){
+						for(let member of dept.members){
+							if(ref.members.indexOf(member.userId + "")!=-1){
+								//勾选用户
+								member.checked = true
+							}
+							else{
+								member.checked = false
+							}
+						}
+					}
+				})
+			},
+			selected:function(e){
+				let that = this;
+				that.members = e.detail.value;//当前所有选中的成员
+				let pages = getCurrentPages(); //当前页面栈
+				let prevPage = pages[pages.length - 2]; //上一个页面
+				//向上一个页面传递数据
+				prevPage.members = that.members//更新上一个页面的数据
+				prevPage.finishMembers = true;
+			}
 			
 		}
 	}

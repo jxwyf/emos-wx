@@ -22,7 +22,7 @@
             }
         },
         {
-            "path" : "pages/metting_list/metting_list",
+            "path" : "pages/meeting_list/meeting_list",
             "style" : {
 				"navigationBarTitleText" : "会议列表",
 				"enablePullDownRefresh" : false
@@ -82,7 +82,7 @@
             
         }
         ,{
-            "path" : "pages/metting/metting",
+            "path" : "pages/meeting/meeting",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "会议详情",
@@ -119,7 +119,7 @@
             },
             {
                 "text" : "会议",
-                "pagePath" : "pages/metting_list/metting_list",
+                "pagePath" : "pages/meeting_list/meeting_list",
                 "iconPath" : "static/bar-2.png",
                 "selectedIconPath" : "static/bar-2-active.png" //选中之后
             },
